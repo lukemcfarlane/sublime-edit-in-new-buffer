@@ -5,7 +5,9 @@ class EditInNewBufferCommand(sublime_plugin.TextCommand):
         if len(self.view.sel()) == 1:
             sel = self.view.substr(self.view.word(self.view.sel()[0]))
             window = self.view.window()
+            syntax = self.view.settings().get('syntax')
             new_view = window.new_file()
+            new_view.set_syntax_file(syntax)
             window.focus_view(new_view)
             new_view.run_command("append", {"characters": sel });
             settings = sublime.load_settings("EditInNewBuffer.sublime-settings")
